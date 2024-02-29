@@ -9,7 +9,7 @@ import Navbar from "./components/NavBar.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Navbar />
+    {/* <Navbar /> */}
     <App />
   </React.StrictMode>
 );
