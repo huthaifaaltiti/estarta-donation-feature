@@ -1,3 +1,6 @@
+// react-router-dom
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div className="max-w-7xl mx-auto">
@@ -8,8 +11,8 @@ const Navbar = () => {
               Estarta Giving app
             </li>
             <li className="w-full flex items-center justify-center gap-6 bg-yellow-400">
-              <li>Home</li>
-              <li>Giving</li>
+              <li>{/* <Link to="/">Home</Link> */}</li>
+              <li>{/* <Link to="/giving">Giving</Link> */}</li>
             </li>
           </ul>
         </nav>
