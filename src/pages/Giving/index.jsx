@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Modal from "../../components/Modal";
 import { donationBeneficiaryList } from "./helper";
+
+import "./styles.css";
 
 const Giving = () => {
   const startDateRef = useRef(null);
@@ -71,38 +73,6 @@ const Giving = () => {
 
   const closeModal = () => {
     setModalOpen(false);
-  };
-
-  const handleModalSubmit = async () => {
-    const formData = {
-      ETId: "",
-      EmployeeProfileID: "1255",
-      TransactionID: "",
-      TransactionType: "",
-      Amount: parseFloat(donationAmount),
-      StartDate: startDate,
-      EndDate: endDate,
-      TransactionNote: "",
-      IsMontheyRecurrence: isRecurring,
-    };
-
-    try {
-      const response = await fetch("https://10.2.2.3/Training/Submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        console.log("Donation submitted successfully!");
-      } else {
-        console.error("Failed to submit donation:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
   return (
@@ -263,10 +233,20 @@ const Giving = () => {
                   </button>
                 </div>
               </div>
+
+              <div className="w-2/4 text-black flex justify-end">
+                <img
+                  width={285}
+                  height={274.92}
+                  src="../../public/assets/icon2.png"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <Modal
         isOpen={modalOpen}
         closeModal={closeModal}
@@ -275,7 +255,6 @@ const Giving = () => {
         startDate={startDate}
         endDate={endDate}
         isRecurring={isRecurring}
-        handleSubmit={handleModalSubmit}
       />
     </>
   );
