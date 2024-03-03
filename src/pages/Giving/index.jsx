@@ -1,6 +1,11 @@
 import { useState, useRef } from "react";
+
 import Modal from "../../components/Modal";
+
 import { donationBeneficiaryList } from "./helper";
+
+import { Alert, Box } from "@mui/material";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import "./styles.css";
 
@@ -15,6 +20,7 @@ const Giving = () => {
   const [endDate, setEndDate] = useState("");
   const [isRecurring, setIsRecurring] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -57,18 +63,42 @@ const Giving = () => {
     setEndDate(formattedEndDate);
   };
 
-  const handleSubmit = () => {
-    if (
-      !selectedOrganization ||
-      !donationAmount ||
-      !startDate ||
-      (!endDate && isRecurring)
-    ) {
-      setFormSubmitted(true);
-    } else {
-      setFormSubmitted(false);
-      setModalOpen(true);
+  const handleSubmit = async () => {
+    const formData = {
+      ETId: "",
+      EmployeeProfileID: "1255",
+      TransactionID: "",
+      TransactionType: "",
+      Amount: parseFloat(donationAmount),
+      StartDate: startDate,
+      EndDate: endDate,
+      TransactionNote: "",
+      IsMontheyRecurrence: isRecurring,
+    };
+
+    try {
+      const response = await fetch("https://10.2.2.3/Training/Submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Donation submitted successfully!");
+        setSubmissionSuccess(true);
+        setFormSubmitted(false);
+      } else {
+        console.error("Failed to submit donation:", response.statusText);
+        setSubmissionSuccess(false);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setSubmissionSuccess(false);
     }
+
+    closeModal();
   };
 
   const closeModal = () => {
@@ -78,10 +108,44 @@ const Giving = () => {
   return (
     <>
       <div className="w-full h-[1080px] flex items-center">
-        <div className="w-[354px] h-full bg-white">left</div>
+        <div className="w-[354px] h-full bg-white"></div>
         <div className="w-full h-full bg-[#BCCAD9]">
           <div className="w-full h-[120px] border-b border-[#a9bacd]"></div>
-          <div className="pt-[48px] pl-[20px] pr-[45px]">
+          <div className="pt-[48px] pl-[20px] pr-[45px] relative">
+            <div className="">
+              {submissionSuccess && (
+                <Box
+                  sx={{
+                    width: "576px",
+                    backgroundColor: "#11A75C",
+                    padding: "16px",
+                    borderRadius: "16px",
+                    position: "absolute",
+                    top: "24px",
+                    right: "45px",
+                  }}
+                >
+                  <div className="h-[24px] flex items-center justify-end">
+                    <HighlightOffIcon
+                      onClick={() => {
+                        setSubmissionSuccess(false);
+                      }}
+                    />
+                  </div>
+                  <Alert
+                    sx={{
+                      backgroundColor: "#11A75C",
+                      color: "#fff",
+                      fontSize: "20px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    Donation Has Been Submitted Successfully.
+                  </Alert>
+                </Box>
+              )}
+            </div>
             <h2 className="text-2xl text-[#1B4DFF] leading-[18px] font-medium">
               Donations
             </h2>
@@ -154,7 +218,8 @@ const Giving = () => {
                     className={`w-full px-3 mt-2 py-2 bg-white text-[#8EA6BF] border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
                   />
                 </div>
-                <div className="w-full flex items-center justify-between gap-5 mt-3">
+                {/* Dates */}
+                <div className="w-full flex items-center justify-between gap-5 mt-3 dates">
                   <div className="w-[327px] flex flex-col justify-center">
                     <label
                       className="flex items-center gap-1 text-[#8EA6BF] text-sm leading-[18px]"
@@ -226,7 +291,19 @@ const Giving = () => {
                 )}
                 <div className="w-[327px] mt-[18px]">
                   <button
-                    onClick={handleSubmit}
+                    onClick={() => {
+                      if (
+                        !selectedOrganization ||
+                        !donationAmount ||
+                        !startDate ||
+                        (!endDate && isRecurring)
+                      ) {
+                        setFormSubmitted(true);
+                      } else {
+                        setFormSubmitted(false);
+                        setModalOpen(true);
+                      }
+                    }}
                     className="w-full mt-[12px] px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600"
                   >
                     Submit
@@ -255,6 +332,7 @@ const Giving = () => {
         startDate={startDate}
         endDate={endDate}
         isRecurring={isRecurring}
+        handleSubmit={handleSubmit}
       />
     </>
   );

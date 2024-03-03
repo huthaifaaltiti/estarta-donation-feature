@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Snackbar } from "@mui/base/Snackbar";
+import { useState } from "react";
+
+import Alert from "@mui/material/Alert";
 
 const SubmissionModal = ({
   isOpen,
@@ -9,44 +10,8 @@ const SubmissionModal = ({
   startDate,
   endDate,
   isRecurring,
+  handleSubmit,
 }) => {
-  const [showSnackbar, setShowSnackbar] = useState(false);
-
-  const handleConfirm = async () => {
-    const formData = {
-      ETId: "",
-      EmployeeProfileID: "1255",
-      TransactionID: "",
-      TransactionType: "",
-      Amount: parseFloat(donationAmount),
-      StartDate: startDate,
-      EndDate: endDate,
-      TransactionNote: "",
-      IsMontheyRecurrence: isRecurring,
-    };
-
-    try {
-      const response = await fetch("https://10.2.2.3/Training/Submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        console.log("Donation submitted successfully!");
-        setShowSnackbar(true);
-      } else {
-        console.error("Failed to submit donation:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-
-    closeModal();
-  };
-
   return (
     <>
       <div
@@ -139,7 +104,7 @@ const SubmissionModal = ({
                 Cancel
               </button>
               <button
-                onClick={handleConfirm}
+                onClick={handleSubmit}
                 className="w-[285px] px-6 py-3 text-sm font-medium text-white bg-[#1B4DFF] rounded-md"
               >
                 Confirm
@@ -148,14 +113,6 @@ const SubmissionModal = ({
           </div>
         </div>
       </div>
-
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={showSnackbar}
-        autoHideDuration={6000}
-        onClose={() => setShowSnackbar(false)}
-        message="Donation Has Been Submitted Successfully."
-      />
     </>
   );
 };
