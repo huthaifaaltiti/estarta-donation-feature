@@ -20,8 +20,8 @@ const SubmissionModal = ({
         }`}
       >
         <div className="fixed inset-0 bg-black opacity-50"></div>
-        <div className="z-50 bg-[#F9FAFB] w-[930px] h-601 px-[62px] py-[68px] rounded-lg shadow-xl flex flex-col gap-5">
-          <div className="w-full h-30 flex items-center gap-3">
+        <div className="z-50 bg-[#F9FAFB] w-[930px] h-601 px-[62px] py-[68px] rounded-lg shadow-xl">
+          <div className="w-full h-30 flex items-center gap-3 mb-[36.08px]">
             <div className="w-[30px] flex">
               <img
                 src="/assets/icon2.png"
@@ -34,7 +34,7 @@ const SubmissionModal = ({
             </h3>
           </div>
 
-          <div className="bg-white p-[10px] rounded">
+          <div className="bg-white p-[10px] rounded mb-[24px]">
             <p className="text-[#EB7101]">
               By confirming this form, you will be providing your approval for
               the concern team to deduct this amount of JOD from your next
@@ -96,7 +96,7 @@ const SubmissionModal = ({
               </label>
             </div>
 
-            <div className="w-full flex items-center justify-center gap-4">
+            <div className="w-full flex items-center justify-center gap-4 mt-[36px]">
               <button
                 className="w-[285px] px-6 py-3 text-sm font-medium text-[#8EA6BF] bg-white rounded-md border border-[#8EA6BF]"
                 onClick={closeModal}

@@ -3,6 +3,28 @@
     brightness(99%) contrast(89%);
 }
 
+.custom-list {
+  list-style-type: none; /* Remove default list style */
+  padding-left: 0; /* Adjust padding to your needs */
+}
+
+.custom-list li {
+  position: relative;
+  padding-left: 30px; /* Adjust based on the size of your custom bullet */
+}
+
+.custom-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #6989aa;
+  border-radius: 50%;
+}
+
 @media only screen and (max-width: 1034px) {
   .dates {
     display: flex;

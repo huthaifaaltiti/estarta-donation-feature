@@ -1,12 +1,10 @@
 import { useState, useRef } from "react";
 
-import Modal from "../../components/Modal";
-
-import { donationBeneficiaryList } from "./helper";
-
 import { Alert, Box } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+import Modal from "../../components/Modal";
+import { donationBeneficiaryList } from "./helper";
 import "./styles.css";
 
 const Giving = () => {
@@ -32,8 +30,8 @@ const Giving = () => {
     setDonationAmount(event.target.value);
   };
 
-  const handleStartDateChange = (event) => {
-    const selectedStartDate = event.target.value;
+  const handleStartDateChange = (e) => {
+    const selectedStartDate = e.target.value;
     setStartDate(selectedStartDate);
 
     const startDateObj = new Date(selectedStartDate);
@@ -111,7 +109,7 @@ const Giving = () => {
         <div className="w-[354px] h-full bg-white"></div>
         <div className="w-full h-full bg-[#BCCAD9]">
           <div className="w-full h-[120px] border-b border-[#a9bacd]"></div>
-          <div className="pt-[48px] pl-[20px] pr-[45px] relative">
+          <div className="pt-[68px] pl-[60px] pr-[45px] relative">
             <div className="">
               {submissionSuccess && (
                 <Box
@@ -149,8 +147,8 @@ const Giving = () => {
             <h2 className="text-2xl text-[#1B4DFF] leading-[18px] font-medium">
               Donations
             </h2>
-            <div className="w-full bg-white mt-[53px] rounded-lg p-3">
-              <ul className="text-[#6989AA] capitalize list-disc space-y-4 list-inside pl-5">
+            <div className="w-full bg-white mt-[36px] rounded-lg py-[18.5px] px-[24px]">
+              <ul className="custom-list text-[#6989AA] capitalize space-y-4 list-inside pl-5 leading-[17.07px] flex flex-col gap-[16px]">
                 <li>
                   The amount of the donation shall not exceed the 30% of your
                   salary.
@@ -164,6 +162,7 @@ const Giving = () => {
                 </li>
               </ul>
             </div>
+
             <div className="w-full bg-[#F9FAFB] mt-[24px] pl-[60px] py-[68px] rounded-lg flex items-center gap-3">
               <div className="w-full">
                 <h3 className="text-xl text-[#1B4DFF] leading-[18px] font-medium">
@@ -197,7 +196,7 @@ const Giving = () => {
                     ))}
                   </select>
                 </div>
-                <div className="w-[327px] mt-4">
+                <div className="w-[327px] mt-[24px]">
                   <label
                     className="flex items-center gap-1 text-[#8EA6BF] text-sm leading-[18px]"
                     htmlFor="donationAmount"
@@ -219,7 +218,7 @@ const Giving = () => {
                   />
                 </div>
                 {/* Dates */}
-                <div className="w-full flex items-center justify-between gap-5 mt-3 dates">
+                <div className="w-full flex items-center justify-between gap-[24px] mt-[24px] dates">
                   <div className="w-[327px] flex flex-col justify-center">
                     <label
                       className="flex items-center gap-1 text-[#8EA6BF] text-sm leading-[18px]"
@@ -289,7 +288,7 @@ const Giving = () => {
                     Please fill all the required fields
                   </p>
                 )}
-                <div className="w-[327px] mt-[18px]">
+                <div className="w-[327px] mt-[24px]">
                   <button
                     onClick={() => {
                       if (
